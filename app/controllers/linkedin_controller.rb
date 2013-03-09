@@ -24,7 +24,8 @@ before_filter :authenticate_user!
     @current_user_connections = get_current_user_connections
     @connections_id_array = get_connections_id_array
     @connections_profiles_by_id = get_connections_profiles_by_id
-    binding.pry
+    
+    redirect_to 
   end
 
   def oauth_account
@@ -91,7 +92,7 @@ before_filter :authenticate_user!
     individual_profile_by_id = {}
     
     connections_profiles_by_id = []
-    @connections_id_array.first(50).each do |id| 
+    @connections_id_array.first(10).each do |id| 
       begin
         sleep 0.1
         individual_profile_by_id = client.profile(:id => id, :fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "num-connections",:positions]).to_hash
@@ -286,7 +287,7 @@ before_filter :authenticate_user!
     }
   end
 
-################### Create hash to save linkedin user instance ################### 
+################### Save linkedin user, company, and position instance using hash ################### 
 
   def save_linkedin_user(profile_hash)
     new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
