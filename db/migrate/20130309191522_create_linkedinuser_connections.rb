@@ -1,6 +1,6 @@
-class LinkedinusersConnections < ActiveRecord::Migration
+class CreateLinkedinuserConnections < ActiveRecord::Migration
   def change
-    create_table :linkedinusers_connections do |t|
+    create_table :linkedinuser_connections do |t|
       t.integer :linkedinuser_id
       t.integer :connection_id
 

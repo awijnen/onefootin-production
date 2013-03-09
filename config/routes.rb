@@ -1,7 +1,8 @@
 RsgLinkedinGem::Application.routes.draw do
   devise_for :users
 
-  resources :linkedin
+  resources :linkedinuser_connections
+  resources :linkedinusers
   match '/linkedin_profile' => "linkedin#linkedin_profile"
   match '/oauth_account' => "linkedin#oauth_account"
   match '/linkedin_oauth_url' => 'linkedin#generate_linkedin_oauth_url'

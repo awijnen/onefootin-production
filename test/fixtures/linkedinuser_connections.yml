@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  linkedinuser_id: 1
+  connection_id: 1
+
+two:
+  linkedinuser_id: 1
+  connection_id: 1

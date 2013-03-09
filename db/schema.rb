@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308202933) do
+ActiveRecord::Schema.define(:version => 20130309193905) do
 
   create_table "companies", :force => true do |t|
     t.integer  "company_linkedin_id"
@@ -20,12 +20,24 @@ ActiveRecord::Schema.define(:version => 20130308202933) do
     t.datetime "updated_at",            :null => false
   end
 
+  create_table "companies_linkedinusers", :id => false, :force => true do |t|
+    t.integer "company_id"
+    t.integer "linkedinuser_id"
+  end
+
   create_table "linkedin_oauth_settings", :force => true do |t|
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "linkedinuser_connections", :force => true do |t|
+    t.integer  "linkedinuser_id"
+    t.integer  "connection_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "linkedinusers", :force => true do |t|
@@ -42,20 +54,6 @@ ActiveRecord::Schema.define(:version => 20130308202933) do
     t.integer  "user_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-  end
-
-  create_table "linkedinusers_companies", :force => true do |t|
-    t.integer  "linkedinuser_id"
-    t.integer  "company_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "linkedinusers_connections", :force => true do |t|
-    t.integer  "linkedinuser_id"
-    t.integer  "connection_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
   end
 
   create_table "positions", :force => true do |t|

@@ -288,20 +288,20 @@ before_filter :authenticate_user!
 ################### Save linkedin user, company, and position instance using hash ################### 
 
   def save_linkedin_user(profile_hash, id)
-    new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
-    new_linkedin_user.user = current_user if id == "current_user"
-    new_linkedin_user.save
+    @new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
+    @new_linkedin_user.user = current_user if id == "current_user"
+    @new_linkedin_user.save
   end
 
 
   def save_single_company(company_hash)
-    new_company = Company.where(:company_linkedin_id => company_hash[:company_linkedin_id]).first_or_create(company_hash)
-    new_company.save
+    @new_company = Company.where(:company_linkedin_id => company_hash[:company_linkedin_id]).first_or_create(company_hash)
+    @new_company.save
   end
 
   def save_single_position(position_hash)
-    new_position = Position.where(:position_linkedin_id => position_hash[:position_linkedin_id]).first_or_create(position_hash)
-    new_position.save
+    @new_position = Position.where(:position_linkedin_id => position_hash[:position_linkedin_id]).first_or_create(position_hash)
+    @new_position.save
   end
 
 end
