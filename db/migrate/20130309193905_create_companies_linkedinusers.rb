@@ -1,4 +1,4 @@
-class CreateCompaniesLinkedinusersJoin < ActiveRecord::Migration
+class CreateCompaniesLinkedinusers < ActiveRecord::Migration
   def up
     create_table :companies_linkedinusers, :id => false do |t|
       t.integer :company_id

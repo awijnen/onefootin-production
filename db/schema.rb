@@ -25,19 +25,19 @@ ActiveRecord::Schema.define(:version => 20130309193905) do
     t.integer "linkedinuser_id"
   end
 
+  create_table "connections_linkedinusers", :id => false, :force => true do |t|
+    t.integer  "linkedinuser_id"
+    t.integer  "connection_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "linkedin_oauth_settings", :force => true do |t|
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "linkedinuser_connections", :force => true do |t|
-    t.integer  "linkedinuser_id"
-    t.integer  "connection_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
   end
 
   create_table "linkedinusers", :force => true do |t|
