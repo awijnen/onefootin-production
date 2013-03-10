@@ -23,7 +23,7 @@ before_filter :authenticate_user!
     @current_user_profile = get_current_user_profile
     @current_user_connections = get_current_user_connections
     @connections_id_array = get_connections_id_array
-    @connections_profiles_by_id = get_connections_profiles_by_id  
+    @connections_profiles_by_id = get_connections_profiles_by_id
   end
 
   def oauth_account
@@ -290,30 +290,36 @@ before_filter :authenticate_user!
 
   def save_linkedin_user(profile_hash, id)
     @new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
-    @new_linkedin_user.save
 
-    # # save linkedinuser_auth - linkedinuser_connection relationship
+    # if the linkedinuser is the logged in user, associate them. If the linkedinuser is a connection then save the connection to the authenticated linkedinuser
     if id == "current_user" 
       @new_linkedin_user.user = current_user
     else
       Linkedinuser.where(:separation_degree => 0).last.connections << @new_linkedin_user
     end
+
+    @new_linkedin_user.save
   end
 
 
   def save_single_company(company_hash)
     # using :company_linkedin_name because some companies were returned with a linkedin_id
     @new_company = Company.where(:company_linkedin_name => company_hash[:company_linkedin_name]).first_or_create(company_hash)
-    @new_company.save
 
     # save linkedinuser - company relationship
     @new_company.linkedinusers << @new_linkedin_user
+
+    @new_linkedin_user.save
+    @new_company.save
   end
 
 
   def save_single_position(position_hash, index)
-    @new_position = Position.where(:position_linkedin_id => position_hash[:position_linkedin_id]).first_or_create(position_hash)
-    @new_position.save
+    company_of_position_id = Company.find_by_company_linkedin_name(@profile_company_array[index][0]).id
+
+    binding.pry
+
+    @new_position = Position.where(:linkedinuser_id => @new_linkedinuser.id, :company_id => company_of_position_id).first_or_create(position_hash)
 
     # save position - company relationship
     @new_position.company = @new_linkedin_user.companies[index] # use the index to save the right position to the right company for a specific user
@@ -321,6 +327,8 @@ before_filter :authenticate_user!
     # save position - linkedinuser relationship
     @new_position.linkedinuser = @new_linkedin_user
 
+    @new_position.save
+    
   end
 
 end

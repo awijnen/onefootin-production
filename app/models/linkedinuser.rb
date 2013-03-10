@@ -3,9 +3,7 @@ class Linkedinuser < ActiveRecord::Base
 
   belongs_to :user
   has_many :positions
-
-  has_many :companies_linkedinusers
-  has_many :companies, :through => :companies_linkedinusers
+  has_many :companies, :through => :positions
 
   has_many :connections_linkedinusers
   has_many :connections, :through => :connections_linkedinusers, :class_name => "Linkedinuser", :foreign_key => :connection_id

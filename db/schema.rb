@@ -11,18 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130309193905) do
+ActiveRecord::Schema.define(:version => 20130309191522) do
 
   create_table "companies", :force => true do |t|
     t.integer  "company_linkedin_id"
     t.string   "company_linkedin_name"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
-  end
-
-  create_table "companies_linkedinusers", :id => false, :force => true do |t|
-    t.integer "company_id"
-    t.integer "linkedinuser_id"
   end
 
   create_table "connections_linkedinusers", :id => false, :force => true do |t|
@@ -62,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20130309193905) do
     t.text     "summary"
     t.boolean  "is_current"
     t.integer  "linkedinuser_id"
-    t.integer  "company_linkedin_id"
+    t.integer  "company_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end

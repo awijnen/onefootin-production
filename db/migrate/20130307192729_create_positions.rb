@@ -6,7 +6,7 @@ class CreatePositions < ActiveRecord::Migration
       t.text :summary
       t.boolean :is_current
       t.integer :linkedinuser_id
-      t.integer :company_linkedin_id
+      t.integer :company_id
 
       t.timestamps
     end
