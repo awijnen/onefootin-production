@@ -7,6 +7,8 @@ RsgLinkedinGem::Application.routes.draw do
   match '/oauth_account' => "linkedin#oauth_account"
   match '/linkedin_oauth_url' => 'linkedin#generate_linkedin_oauth_url'
 
+  match '/show_aggregate_connections' => 'linkedin#show_aggregate_connections'
+
   root :to => 'linkedin#index'
 
   # The priority is based upon order of creation:

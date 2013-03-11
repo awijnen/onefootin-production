@@ -15,8 +15,16 @@ before_filter :authenticate_user!
 
   def index
     unless LinkedinOauthSetting.find_by_user_id(current_user.id).nil?
-      redirect_to "/linkedin_profile"
+      if current_user.linkedinuser.nil?
+        redirect_to '/linkedin_profile' # fetch linkedin users from linkedin API      
+      else
+        redirect_to '/show_aggregate_connections' # show fetched users
+      end
     end
+  end
+
+  def show_aggregate_connections
+
   end
 
   def linkedin_profile
@@ -24,6 +32,8 @@ before_filter :authenticate_user!
     @current_user_connections = get_current_user_connections
     @connections_id_array = get_connections_id_array
     @connections_profiles_by_id = get_connections_profiles_by_id
+
+    redirect_to '/show_aggregate_connections' # show fetched users
   end
 
   def oauth_account
@@ -90,7 +100,8 @@ before_filter :authenticate_user!
     individual_profile_by_id = {}
     
     connections_profiles_by_id = []
-    @connections_id_array.first(10).each do |id| 
+
+    @connections_id_array.first(200).each do |id| 
       begin
         # sleep 0.1
         individual_profile_by_id = client.profile(:id => id, :fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "num-connections",:positions]).to_hash
@@ -294,6 +305,8 @@ before_filter :authenticate_user!
     # if the linkedinuser is the logged in user, associate them. If the linkedinuser is a connection then save the connection to the authenticated linkedinuser
     if id == "current_user" 
       @new_linkedin_user.user = current_user
+      current_user.linkedinuser = @new_linkedin_user
+      current_user.save
     else
       Linkedinuser.where(:separation_degree => 0).last.connections << @new_linkedin_user
     end
@@ -317,17 +330,22 @@ before_filter :authenticate_user!
   def save_single_position(position_hash, index)
     company_of_position_id = Company.find_by_company_linkedin_name(@profile_company_array[index][0]).id
 
-    binding.pry
+    @update_position = Position.where(:linkedinuser_id => @new_linkedin_user.id, :company_id => company_of_position_id).first
 
-    @new_position = Position.where(:linkedinuser_id => @new_linkedinuser.id, :company_id => company_of_position_id).first_or_create(position_hash)
+      # first_or_create(position_hash) was failing, figure out why
+      @update_position.position_linkedin_id = position_hash[:position_linkedin_id]
+      @update_position.title = position_hash[:title]
+      @update_position.summary = position_hash[:summary]
+      @update_position.is_current = position_hash[:is_current]
+
 
     # save position - company relationship
-    @new_position.company = @new_linkedin_user.companies[index] # use the index to save the right position to the right company for a specific user
+    @update_position.company = @new_linkedin_user.companies[index] # use the index to save the right position to the right company for a specific user
 
     # save position - linkedinuser relationship
-    @new_position.linkedinuser = @new_linkedin_user
+    @update_position.linkedinuser = @new_linkedin_user
 
-    @new_position.save
+    @update_position.save
     
   end
 

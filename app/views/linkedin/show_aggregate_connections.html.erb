@@ -1,0 +1,31 @@
+<h1>These are all your LinkedIn Connections</h1>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Positions</h1>
+
+      <% Linkedinuser.where(:separation_degree => 0).each do |auth_user| %>
+        <h2><%= auth_user.first_name %> <%= auth_user.last_name %></h2>
+        <% auth_user.connections.each do |connection| %>
+        <table class="table table-striped">
+          <tr>
+            <th>Picture</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Location</th>
+            <th>Separation degree</th>
+            <th>Public profile</th>
+          </tr>        
+          <tr>
+            <th><img src=<%= connection.picture_url %>></img></th>
+            <th><%= connection.first_name %></th>
+            <th><%= connection.last_name %></th>
+            <th><%= connection.location %></th>
+            <th><%= connection.separation_degree %></th>
+            <th><a href=<%= connection.public_profile_url %>><%= connection.public_profile_url %></a></th>
+          </tr>
+        </table>
+          <% end %>
+      <% end %>
+  </div>
+</div>
