@@ -24,7 +24,7 @@ before_filter :authenticate_user!
   end
 
   def show_aggregate_connections
-
+    Job.create_all_from_simply_hired
   end
 
   def linkedin_profile
