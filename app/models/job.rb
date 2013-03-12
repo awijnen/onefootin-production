@@ -38,7 +38,7 @@ class Job < ActiveRecord::Base
 
   def get_attributes_for_career_builder(response)
     self.title        = response["ONetFriendlyTitle"]
-    self.posting_date = response["PostedDate"] #2/19/2013
+    self.posting_date = Date.strptime(response["PostedDate"], "%m/%d/%Y") 
     self.link         = response["JobDetailsURL"]
     self.city         = response["Location"].last 
     self.state        = response["Location"].first 
