@@ -7,7 +7,8 @@ class Job < ActiveRecord::Base
       url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-2?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
       responses = HTTParty.get(url)["shrs"]["rs"]["r"]
       responses.each do |response|
-      c = Company.find_or_create_by_company_linkedin_name(response["cn"]["__content__"])
+      company_name = response["cn"]["__content__"]
+      c = Company.find_or_create_by_company_linkedin_name(/#{company_name}/i)
       j = Job.new
       j.company = c
         j.get_attributes(response)

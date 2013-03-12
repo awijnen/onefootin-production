@@ -4,35 +4,37 @@
   <ul>
     <li><a href="/show_all_jobs">All Jobs</a></li>
     <li><a href="/show_all_jobs_with_connections">All Jobs with Connections</a></li>
-  </ul>
+  </ul> 
 </nav>
 
 <div class="row" style="margin-top: 16px;">
   <div class="span10">
     <h1>Positions</h1>
 
-      <% Linkedinuser.where(:separation_degree => 0).each do |auth_user| %>
-        <h2><%= auth_user.first_name %> <%= auth_user.last_name %></h2>
-          <table class="table table-striped">
-          <tr>
-            <th>Picture</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Location</th>
-            <th>Separation degree</th>
-            <th>Public profile</th>
-          </tr>        
-          <% auth_user.connections.each do |connection| %>
+      <% User.all.each do |auth_user| %>
+        <% unless auth_user.linkedinuser.nil? %>
+          <h2><%= auth_user.linkedinuser.first_name %> <%= auth_user.linkedinuser.last_name %></h2>
+            <table class="table table-striped">
             <tr>
-              <th><img src=<%= connection.picture_url %>></img></th>
-              <th><%= connection.first_name %></th>
-              <th><%= connection.last_name %></th>
-              <th><%= connection.location %></th>
-              <th><%= connection.separation_degree %></th>
-              <th><a href=<%= connection.public_profile_url %>><%= connection.public_profile_url %></a></th>
-            </tr>
+              <th>Picture</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Location</th>
+              <th>Separation degree</th>
+              <th>Public profile</th>
+            </tr>        
+            <% auth_user.linkedinuser.connections.each do |connection| %>
+              <tr>
+                <th><img src=<%= connection.picture_url %>></img></th>
+                <th><%= connection.first_name %></th>
+                <th><%= connection.last_name %></th>
+                <th><%= connection.location %></th>
+                <th><%= connection.separation_degree %></th>
+                <th><a href=<%= connection.public_profile_url %>><%= connection.public_profile_url %></a></th>
+              </tr>
+            <% end %>
+            </table>
           <% end %>
-          </table>
       <% end %>
   </div>
 </div>

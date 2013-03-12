@@ -22,10 +22,10 @@ before_filter :authenticate_user!
   end
 
   def show_aggregate_connections
-    # Job.create_all_from_simply_hired
+    Job.create_all_from_simply_hired
   end
 
-  def show_all_companies
+  def show_aggregate_connections
   end
   
   def show_all_jobs
@@ -81,7 +81,7 @@ before_filter :authenticate_user!
     current_user_profile = client.profile(:fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "email-address", "num-connections",:positions])
 
     get_single_profile_data(current_user_profile, id="current_user")
-
+    # binding.pry
     return current_user_profile
   end
 
@@ -108,7 +108,7 @@ before_filter :authenticate_user!
     
     connections_profiles_by_id = []
 
-    @connections_id_array.first(400).each do |id| 
+    @connections_id_array.first(1).each do |id| 
       begin
         # sleep 0.1
         individual_profile_by_id = client.profile(:id => id, :fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "num-connections",:positions]).to_hash
@@ -197,6 +197,7 @@ before_filter :authenticate_user!
   end
 
   def get_profile_separation_degree(individual_profile_by_id)
+    # binding.pry
     individual_profile_by_id["distance"]
   end
 
@@ -307,17 +308,17 @@ before_filter :authenticate_user!
 
 
   def save_linkedin_user(profile_hash, id)
-    if id == "current_user"
-      @new_linkedin_user = Linkedinuser.create(profile_hash)
+    @new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_initialize
+    @new_linkedin_user.update_attributes(profile_hash)
 
-      # if the linkedinuser is the logged in user, associate them. If the linkedinuser is a connection then save the connection to the authenticated linkedinuser
-      
+    # if the linkedinuser is the logged in user, associate them. If the linkedinuser is a connection then save the connection to the authenticated linkedinuser
+    if id == "current_user"
+      binding.pry 
       @new_linkedin_user.user = current_user
       current_user.linkedinuser = @new_linkedin_user
       current_user.save
     else
-      @new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
-      Linkedinuser.where(:separation_degree => 0).last.connections << @new_linkedin_user
+      current_user.linkedinuser.connections << @new_linkedin_user
     end
 
     @new_linkedin_user.save

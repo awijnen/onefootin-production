@@ -21,19 +21,23 @@
         </tr>        
       <% Job.all.each do |job| %>
         <% if Position.find_by_company_id(job.company.id) != nil %>
-        <tr>
-            <th><%= job.company.company_linkedin_name %></th>
-            <th><%= job.title %></th>
-            <th><%= job.city %></th>
-            <th><%= Linkedinuser.find_by_id(ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(Position.find_by_company_id(Job.all[86].company.id).linkedinuser_id)
-.id).first.linkedinuser_id).first_name%> <%= Linkedinuser.find_by_id(ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(Position.find_by_company_id(Job.all[86].company.id).linkedinuser_id)
-.id).first.linkedinuser_id).last_name%></th>
-            <th><%= Linkedinuser.find_by_id(Position.find_by_company_id(job.company.id).linkedinuser_id)
-  .first_name %> <%= Linkedinuser.find_by_id(Position.find_by_company_id(job.company.id).linkedinuser_id)
-  .last_name %></th>
-          </tr>
+          <% Position.where(:company_id => job.company.id).all.each do |position| %>
+            <% ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(position.linkedinuser_id)
+  .id).all.each do |connection| %>
+              <tr>
+                <th><%= job.company.company_linkedin_name %></th>
+                <th><%= job.title %></th>
+                <th><%= job.city %></th>
+                <th><%= Linkedinuser.find_by_id(connection.linkedinuser_id).first_name%> <%= Linkedinuser.find_by_id(connection.linkedinuser_id).last_name%></th>
+                <th><%= Linkedinuser.find_by_id(position.linkedinuser_id)
+      .first_name %> <%= Linkedinuser.find_by_id(position.linkedinuser_id)
+      .last_name %></th>
+              </tr>
+            <% end %>
+          <% end %>
         <% end %>  
       <% end %>
       </table>
   </div>
 </div>
+
