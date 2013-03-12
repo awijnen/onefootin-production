@@ -1,0 +1,39 @@
+<h1>All Jobs with Connections</h1>
+
+<nav>
+  <ul>
+    <li><a href="/show_aggregate_connections">Aggregate Conncections</a></li>
+    <li><a href="/show_all_jobs">All Jobs</a></li>
+  </ul>
+</nav>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Jobs</h1>
+
+     <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th>Title</th>
+          <th>City</th>
+          <th>Alumni connection
+          <th>Company connection<th>
+        </tr>        
+      <% Job.all.each do |job| %>
+        <% if Position.find_by_company_id(job.company.id) != nil %>
+        <tr>
+            <th><%= job.company.company_linkedin_name %></th>
+            <th><%= job.title %></th>
+            <th><%= job.city %></th>
+            <th><%= Linkedinuser.find_by_id(ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(Position.find_by_company_id(Job.all[86].company.id).linkedinuser_id)
+.id).first.linkedinuser_id).first_name%> <%= Linkedinuser.find_by_id(ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(Position.find_by_company_id(Job.all[86].company.id).linkedinuser_id)
+.id).first.linkedinuser_id).last_name%></th>
+            <th><%= Linkedinuser.find_by_id(Position.find_by_company_id(job.company.id).linkedinuser_id)
+  .first_name %> <%= Linkedinuser.find_by_id(Position.find_by_company_id(job.company.id).linkedinuser_id)
+  .last_name %></th>
+          </tr>
+        <% end %>  
+      <% end %>
+      </table>
+  </div>
+</div>

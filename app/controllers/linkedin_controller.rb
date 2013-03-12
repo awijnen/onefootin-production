@@ -11,8 +11,6 @@ before_filter :authenticate_user!
       :access_token_path => '/uas/oauth/accessToken' 
   }
 
-  @throttle_limit = 200
-
   def index
     unless LinkedinOauthSetting.find_by_user_id(current_user.id).nil?
       if current_user.linkedinuser.nil?
@@ -24,7 +22,16 @@ before_filter :authenticate_user!
   end
 
   def show_aggregate_connections
-    Job.create_all_from_simply_hired
+    # Job.create_all_from_simply_hired
+  end
+
+  def show_all_companies
+  end
+  
+  def show_all_jobs
+  end
+  
+  def show_all_jobs_with_connections
   end
 
   def linkedin_profile
@@ -101,7 +108,7 @@ before_filter :authenticate_user!
     
     connections_profiles_by_id = []
 
-    @connections_id_array.first(10).each do |id| 
+    @connections_id_array.first(400).each do |id| 
       begin
         # sleep 0.1
         individual_profile_by_id = client.profile(:id => id, :fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "num-connections",:positions]).to_hash
@@ -300,14 +307,16 @@ before_filter :authenticate_user!
 
 
   def save_linkedin_user(profile_hash, id)
-    @new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
+    if id == "current_user"
+      @new_linkedin_user = Linkedinuser.create(profile_hash)
 
-    # if the linkedinuser is the logged in user, associate them. If the linkedinuser is a connection then save the connection to the authenticated linkedinuser
-    if id == "current_user" 
+      # if the linkedinuser is the logged in user, associate them. If the linkedinuser is a connection then save the connection to the authenticated linkedinuser
+      
       @new_linkedin_user.user = current_user
       current_user.linkedinuser = @new_linkedin_user
       current_user.save
     else
+      @new_linkedin_user = Linkedinuser.where(:linkedin_id => profile_hash[:linkedin_id]).first_or_create(profile_hash)
       Linkedinuser.where(:separation_degree => 0).last.connections << @new_linkedin_user
     end
 

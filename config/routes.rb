@@ -8,6 +8,9 @@ RsgLinkedinGem::Application.routes.draw do
   match '/linkedin_oauth_url' => 'linkedin#generate_linkedin_oauth_url'
 
   match '/show_aggregate_connections' => 'linkedin#show_aggregate_connections'
+  match '/show_all_companies' => 'linkedin#show_all_companies'
+  match '/show_all_jobs' => 'linkedin#show_all_jobs'
+  match '/show_all_jobs_with_connections' => 'linkedin#show_all_jobs_with_connections'
 
   root :to => 'linkedin#index'
 

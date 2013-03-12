@@ -1,0 +1,29 @@
+<h1>All Jobs</h1>
+
+<nav>
+  <ul>
+    <li><a href="/show_aggregate_connections">Aggregate Conncections</a></li>
+    <li><a href="/show_all_jobs_with_connections">All Jobs with Connections</a></li>
+  </ul>
+</nav>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Jobs</h1>
+
+     <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th>Title</th>
+          <th>City</th>
+        </tr>        
+      <% Job.all.each do |job| %>
+        <tr>
+          <th><%= job.company.company_linkedin_name %></th>
+          <th><%= job.title %></th>
+          <th><%= job.city %></th>
+        </tr>  
+      <% end %>
+      </table>
+  </div>
+</div>
