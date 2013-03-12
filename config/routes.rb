@@ -12,6 +12,8 @@ RsgLinkedinGem::Application.routes.draw do
   match '/show_all_jobs' => 'linkedin#show_all_jobs'
   match '/show_all_jobs_with_connections' => 'linkedin#show_all_jobs_with_connections'
 
+  match '/run_all' => 'linkedin#run_all'
+
   root :to => 'linkedin#index'
 
   # The priority is based upon order of creation:
