@@ -4,16 +4,23 @@ class Job < ActiveRecord::Base
   belongs_to :company
 
   def self.create_all_from_simply_hired
-      url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-2?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
-      responses = HTTParty.get(url)["shrs"]["rs"]["r"]
+    counter = 1
+    url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-1?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
+    max_page_responses = HTTParty.get(url)["sherror"]["error"]["__content__"] rescue "results"
+    
+    while max_page_responses == "results"
+      page_url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-#{counter}?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
+      responses = HTTParty.get(page_url)["shrs"]["rs"]["r"]
       responses.each do |response|
         company_name = response["cn"]["__content__"]
         c = Company.find_or_create_by_company_linkedin_name(company_name)
         j = Job.new
         j.company = c
-          j.get_attributes_for_simply_hired(response)
+        j.get_attributes_for_simply_hired(response)
         j.daily_auto_update
       end
+      counter += 1
+    end
   end
 
   def get_attributes_for_simply_hired(response)
@@ -21,7 +28,8 @@ class Job < ActiveRecord::Base
     self.posting_date = response["dp"] 
     self.link         = response["src"]["url"]
     self.city         = response["loc"]['cty'] 
-    self.state        = response["loc"]["st"]    
+    self.state        = response["loc"]["st"]
+    self.description  = response["e"]    
   end
 
   def self.create_all_from_career_builder
@@ -41,8 +49,10 @@ class Job < ActiveRecord::Base
     self.title        = response["ONetFriendlyTitle"]
     self.posting_date = Date.strptime(response["PostedDate"], "%m/%d/%Y") 
     self.link         = response["JobDetailsURL"]
-    self.city         = response["Location"].last 
-    self.state        = response["Location"].first 
+    location          = response["Location"].split(" - ")
+    self.city         = location.first 
+    self.state        = location.last 
+    self.description  = response["DescriptionTeaser"]
     self.logo         = response["CompanyImageURL"] 
   end
   
