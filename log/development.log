@@ -60,3 +60,35 @@ Connecting to database specified by database.yml
   [1m[36m (17.4ms)[0m  [1mbegin transaction[0m
 Connecting to database specified by database.yml
   [1m[36m (11.1ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to DeviseCreateUsers (20130307015737)
+Migrating to CreateLinkedinOauthSettings (20130307020049)
+Migrating to CreatePositions (20130307192729)
+Migrating to CreateLinkedinusers (20130307211857)
+Migrating to CreateCompanies (20130307211939)
+Migrating to CreateConnectionsLinkedinusers (20130309191522)
+Migrating to CreateJobs (20130311185820)
+Migrating to AddLogoToJobs (20130312194924)
+Migrating to AddDescriptionToJobs (20130313061625)
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "jobs" ADD "description" varchar(255)
+  [1m[36m (16.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20130313061625')[0m
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36m (0.5ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("companies")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("connections_linkedinusers")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("jobs")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("linkedin_oauth_settings")
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("linkedinusers")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("positions")
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_info('index_users_on_reset_password_token')
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_info('index_users_on_email')[0m
+Connecting to database specified by database.yml
+  [1m[36m (13.2ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (11.6ms)[0m  [1mbegin transaction[0m

@@ -21,7 +21,8 @@ class Job < ActiveRecord::Base
     self.posting_date = response["dp"] 
     self.link         = response["src"]["url"]
     self.city         = response["loc"]['cty'] 
-    self.state        = response["loc"]["st"]    
+    self.state        = response["loc"]["st"]
+    self.description  = response["e"]    
   end
 
   def self.create_all_from_career_builder
@@ -44,6 +45,7 @@ class Job < ActiveRecord::Base
     location          = response["Location"].split(" - ")
     self.city         = location.first 
     self.state        = location.last
+    self.description  = response["DescriptionTeaser"]
     self.logo         = response["CompanyImageURL"] 
   end
   
