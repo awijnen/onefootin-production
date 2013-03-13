@@ -16,22 +16,9 @@ before_filter :authenticate_user!
       if current_user.linkedinuser.nil?
         redirect_to '/linkedin_profile' # fetch linkedin users from linkedin API      
       else
-        redirect_to '/show_aggregate_connections' # show fetched users
+        redirect_to jobs_path # show fetched users
       end
     end
-  end
-
-  def show_aggregate_connections
-    # Job.create_all_from_simply_hired
-  end
-
-  def show_aggregate_connections
-  end
-  
-  def show_all_jobs
-  end
-  
-  def show_all_jobs_with_connections
   end
 
   def linkedin_profile

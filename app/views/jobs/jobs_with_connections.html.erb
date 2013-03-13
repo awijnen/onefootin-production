@@ -1,0 +1,41 @@
+<h1>All Jobs with Connections</h1>
+
+<nav>
+  <%= link_to 'All Companies', companies_path %> | <%= link_to 'All Jobs', jobs_path %>
+</nav>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Jobs</h1>
+
+     <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th>Title</th>
+          <th>City</th>
+          <th>Alumni connection
+          <th>Company connection<th>
+        </tr>        
+      <% @jobs.each do |job| %>
+        <% if Position.find_by_company_id(job.company.id) != nil %>
+          <% Position.where(:company_id => job.company.id).all.each do |position| %>
+            <% ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(position.linkedinuser_id)
+  .id).all.each do |connection| %>
+              <tr>
+                <th><%= link_to job.company.company_linkedin_name, job.company %></th>
+                <th><%= link_to job.title, job %></th>
+                <th><%= job.city %></th>
+                <th><%= Linkedinuser.find_by_id(connection.linkedinuser_id).first_name%> <%= Linkedinuser.find_by_id(connection.linkedinuser_id).last_name%></th>
+                <th><%= Linkedinuser.find_by_id(position.linkedinuser_id)
+      .first_name %> <%= Linkedinuser.find_by_id(position.linkedinuser_id)
+      .last_name %></th>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>  
+      <% end %>
+      </table>
+  </div>
+</div>
+<br>
+

@@ -1,0 +1,25 @@
+<h1>Job Details</h1>
+
+<nav>
+  <%= link_to 'All Companies', companies_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %>
+</nav>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Details</h1>
+
+     <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th>Title (link to posting)</th>
+          <th>City</th>
+        </tr>        
+        <tr>
+          <th><%= link_to @job.company.company_linkedin_name, @job.company%></th>
+          <th><%= link_to @job.title, @job.link %></th>
+          <th><%= @job.city %></th>
+        </tr>  
+      </table>
+  </div>
+</div>
+<br>

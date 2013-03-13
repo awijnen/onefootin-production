@@ -1,10 +1,7 @@
-<h1>All Jobs</h1>
+<h1>Index for Jobs</h1>
 
 <nav>
-  <ul>
-    <li><a href="/show_aggregate_connections">Aggregate Conncections</a></li>
-    <li><a href="/show_all_jobs_with_connections">All Jobs with Connections</a></li>
-  </ul>
+  <%= link_to 'All Companies', companies_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %>
 </nav>
 
 <div class="row" style="margin-top: 16px;">
@@ -17,13 +14,14 @@
           <th>Title</th>
           <th>City</th>
         </tr>        
-      <% Job.all.each do |job| %>
+      <% @jobs.each do |job| %>
         <tr>
           <th><%= link_to job.company.company_linkedin_name, job.company%></th>
-          <th><%= job.title %></th>
+          <th><%= link_to job.title, job %></th>
           <th><%= job.city %></th>
         </tr>  
       <% end %>
       </table>
   </div>
 </div>
+<br>

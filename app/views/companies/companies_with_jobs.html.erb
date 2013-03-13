@@ -1,0 +1,31 @@
+<h1>Companies with Jobs</h1>
+
+<nav>
+  <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %>
+</nav>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Companies</h1>
+
+     <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th>Job</th>
+          <th>Number of Connections</th>
+        </tr>        
+      <% @companies.each do |company| %>
+        <% unless company.jobs.each.nil? %>
+          <% company.jobs.each do |job| %>
+            <tr>
+              <th><%= link_to job.company.company_linkedin_name, company%></th>
+              <th><%= link_to job.title, job %></th>
+              <th><%= company.linkedinusers.size %></th>
+            </tr>  
+          <% end %> 
+        <% end %>   
+      <% end %>
+      </table>
+  </div>
+</div>
+<br>

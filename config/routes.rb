@@ -1,18 +1,21 @@
 RsgLinkedinGem::Application.routes.draw do
+  get "jobs/index"
+
+  get "jobs/show"
+
   devise_for :users
 
   resources :linkedinuser_connections
   resources :linkedinusers
+  resources :companies
+  resources :jobs
+
   match '/linkedin_profile' => "linkedin#linkedin_profile"
   match '/oauth_account' => "linkedin#oauth_account"
   match '/linkedin_oauth_url' => 'linkedin#generate_linkedin_oauth_url'
 
-  match '/show_aggregate_connections' => 'linkedin#show_aggregate_connections'
-  match '/show_all_companies' => 'linkedin#show_all_companies'
-  match '/show_all_jobs' => 'linkedin#show_all_jobs'
-  match '/show_all_jobs_with_connections' => 'linkedin#show_all_jobs_with_connections'
-
-  match '/run_all' => 'linkedin#run_all'
+  match '/jobs_with_connections' => 'jobs#jobs_with_connections'
+  match '/companies_with_jobs' => 'companies#companies_with_jobs'
 
   root :to => 'linkedin#index'
 
