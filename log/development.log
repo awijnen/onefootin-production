@@ -1,2 +1,62 @@
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (2.5ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (18.3ms)[0m  CREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "company_linkedin_id" integer, "company_linkedin_name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (18.7ms)[0m  [1mCREATE TABLE "connections_linkedinusers" ("linkedinuser_id" integer, "connection_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "posting_date" datetime, "link" varchar(255), "city" varchar(255), "state" varchar(255), "company_id" integer, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "linkedin_oauth_settings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "atoken" varchar(255), "asecret" varchar(255), "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (2.1ms)[0m  CREATE TABLE "linkedinusers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255), "first_name" varchar(255), "last_name" varchar(255), "linkedin_id" varchar(255), "location" varchar(255), "num_connections" integer, "picture_url" varchar(255), "public_profile_url" varchar(255), "separation_degree" integer, "total_positions" integer, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "positions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "position_linkedin_id" integer, "title" varchar(255), "summary" text, "is_current" boolean, "linkedinuser_id" integer, "company_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "encrypted_password" varchar(255) DEFAULT '' NOT NULL, "reset_password_token" varchar(255), "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar(255), "last_sign_in_ip" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
+  [1m[35m (2.0ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_info('index_users_on_email')
+  [1m[36m (3.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (2.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130311185820')
+  [1m[36m (1.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130307015737')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130307020049')
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130307192729')[0m
+  [1m[35m (1.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130307211857')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130307211939')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130309191522')
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to DeviseCreateUsers (20130307015737)
+Migrating to CreateLinkedinOauthSettings (20130307020049)
+Migrating to CreatePositions (20130307192729)
+Migrating to CreateLinkedinusers (20130307211857)
+Migrating to CreateCompanies (20130307211939)
+Migrating to CreateConnectionsLinkedinusers (20130309191522)
+Migrating to CreateJobs (20130311185820)
+Migrating to AddLogoToJobs (20130312194924)
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "jobs" ADD "logo" blob
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20130312194924')[0m
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36m (0.6ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("companies")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("connections_linkedinusers")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("jobs")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("linkedin_oauth_settings")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("linkedinusers")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("positions")
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_info('index_users_on_reset_password_token')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('index_users_on_email')[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.8ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.8ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (17.4ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (11.1ms)[0m  [1mbegin transaction[0m
