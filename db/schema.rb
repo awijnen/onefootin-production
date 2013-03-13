@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313131629) do
+ActiveRecord::Schema.define(:version => 20130311185820) do
 
   create_table "companies", :force => true do |t|
     t.integer  "company_linkedin_id"
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(:version => 20130313131629) do
     t.string   "state"
     t.integer  "company_id"
     t.string   "logo"
+    t.string   "description"
     t.integer  "user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.string   "description"
   end
 
   create_table "linkedin_oauth_settings", :force => true do |t|
