@@ -92,3 +92,21 @@ Connecting to database specified by database.yml
   [1m[36m (13.2ms)[0m  [1mbegin transaction[0m
 Connecting to database specified by database.yml
   [1m[36m (11.6ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (11.0ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (11.0ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (10.9ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.9ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (1.2ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.8ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.8ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.8ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (1.5ms)[0m  [1mbegin transaction[0m

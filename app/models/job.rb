@@ -1,19 +1,26 @@
 class Job < ActiveRecord::Base
-  attr_accessible :city, :company_id, :link, :posting_date, :state, :title, :user_id
+  attr_accessible :city, :company_id, :link, :posting_date, :state, :title, :logo, :user_id
 
   belongs_to :company
 
   def self.create_all_from_simply_hired
-      url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-2?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
-      responses = HTTParty.get(url)["shrs"]["rs"]["r"]
+    counter = 1
+    url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-1?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
+    max_page_responses = HTTParty.get(url)["sherror"]["error"]["__content__"] rescue "results"
+    
+    while max_page_responses == "results"
+      page_url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-#{counter}?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
+      responses = HTTParty.get(page_url)["shrs"]["rs"]["r"]
       responses.each do |response|
-      company_name = response["cn"]["__content__"]
-      c = Company.find_or_create_by_company_linkedin_name(company_name)
-      j = Job.new
-      j.company = c
+        company_name = response["cn"]["__content__"]
+        c = Company.find_or_create_by_company_linkedin_name(company_name)
+        j = Job.new
+        j.company = c
         j.get_attributes_for_simply_hired(response)
-      j.daily_auto_update
+        j.daily_auto_update
       end
+      counter += 1
+    end
   end
 
   def get_attributes_for_simply_hired(response)
