@@ -7,24 +7,33 @@
 <nav>
   <%= link_to 'All Companies', companies_path %> | <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %> | <%= link_to 'Alumni Network', show_connections_path %>
 </nav>
-
-<div class="row" style="margin-top: 16px;">
-  <div class="span10">
-
-     <table class="table table-striped">
-      <tr>
-        <th>Company</th>
-        <th>Title</th>
-        <th>Location</th>
-      </tr>  
-      <% @linkedinuser.positions.each do |position| %>      
-        <tr>
-          <th><%= link_to position.company.company_linkedin_name, position.company.company_linkedin_name %></th>
-          <th><%= position.title %></th>
-          <th><%= @linkedinuser.location %></th>
-        </tr>  
-      <% end %> 
-      </table>
-  </div>
-</div>
 <br>
+
+<% if @linkedinuser.separation_degree == 0 %>
+   <em>Email address: <%= @linkedinuser.email %></em>
+<% else %>
+  <em>Alumni Connection: <%= Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => @linkedinuser.id).first.linkedinuser_id).first.first_name %> <%= Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => @linkedinuser.id).first.linkedinuser_id).first.last_name %></em>
+<% end %> 
+
+  <div class="row" style="margin-top: 16px;">
+    <div class="span10">
+
+     
+
+       <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th>Title</th>
+          <th>Location</th>
+        </tr>  
+        <% @linkedinuser.positions.each do |position| %>      
+          <tr>
+            <th><%= link_to position.company.company_linkedin_name, position.company.company_linkedin_name %></th>
+            <th><%= position.title %></th>
+            <th><%= @linkedinuser.location %></th>
+          </tr>  
+        <% end %> 
+        </table>
+    </div>
+  </div>
+  <br>

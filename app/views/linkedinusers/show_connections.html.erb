@@ -1,11 +1,10 @@
 <h1>All Connections in Your Alumni Network</h1>
 
-<h3>Size of the network: <%= @linkedinusers.size %></h3>
-
 <nav>
   <%= link_to 'All Companies', companies_path %> | <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %>
 </nav>
 
+<h3>Immediate Network - Size of the immediate network: <%= Linkedinuser.where(:separation_degree => 0).size %></h3>
 <div class="row" style="margin-top: 16px;">
   <div class="span10">
 
@@ -16,12 +15,37 @@
           <th>Title</th>
           <th>Location</th>
         </tr>        
-      <% @linkedinusers.each do |linkedinuser| %>
+      <% Linkedinuser.where(:separation_degree => 0).each do |linkedinuser| %>
         <tr>
           <th><%= link_to (linkedinuser.first_name + " " + linkedinuser.last_name), linkedinuser%></th>
           <th><%= link_to linkedinuser.companies.first.company_linkedin_name, linkedinuser.companies.first %></th>
           <th><%= linkedinuser.positions.first.title %></th>
           <th><%= linkedinuser.location %></th>
+        </tr>  
+      <% end %>
+      </table>
+  </div>
+</div>
+<br>
+<h3>Extended Network - Size of the extended network: <%= @linkedinusers.size %></h3>
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+
+     <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Title</th>
+          <th>Location</th>
+          <th>Alumni Connection</th>
+        </tr>        
+      <% Linkedinuser.where(:separation_degree => 1).each do |linkedinuser| %>
+        <tr>
+          <th><%= link_to (linkedinuser.first_name + " " + linkedinuser.last_name), linkedinuser%></th>
+          <th><%= link_to linkedinuser.companies.first.company_linkedin_name, linkedinuser.companies.first %></th>
+          <th><%= linkedinuser.positions.first.title %></th>
+          <th><%= linkedinuser.location %></th>
+          <th><%= link_to Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first.first_name + " " + Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first.last_name, Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first %></th>
         </tr>  
       <% end %>
       </table>
