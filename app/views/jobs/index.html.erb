@@ -1,7 +1,9 @@
 <h1>Index for Jobs</h1>
 
+<h3>Number of jobs listed: <%= @jobs.size %></h3>
+
 <nav>
-  <%= link_to 'All Companies', companies_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %>
+  <%= link_to 'All Companies', companies_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %> | <%= link_to 'Alumni Network', show_connections_path %>
 </nav>
 
 <div class="row" style="margin-top: 16px;">

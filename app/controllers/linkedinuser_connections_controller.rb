@@ -1,2 +1,0 @@
-class LinkedinuserConnectionsController < ApplicationController
-end

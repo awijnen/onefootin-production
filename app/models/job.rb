@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  attr_accessible :city, :company_id, :link, :posting_date, :state, :title, :user_id
+  attr_accessible :city, :company_id, :link, :posting_date, :state, :title, :logo ,:user_id
 
   belongs_to :company
 
@@ -7,12 +7,12 @@ class Job < ActiveRecord::Base
       url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-2?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
       responses = HTTParty.get(url)["shrs"]["rs"]["r"]
       responses.each do |response|
-      company_name = response["cn"]["__content__"]
-      c = Company.find_or_create_by_company_linkedin_name(/#{company_name}/i)
-      j = Job.new
-      j.company = c
-        j.get_attributes_for_simply_hired(response)
-      j.daily_auto_update
+        company_name = response["cn"]["__content__"]
+        c = Company.find_or_create_by_company_linkedin_name(company_name)
+        j = Job.new
+        j.company = c
+          j.get_attributes_for_simply_hired(response)
+        j.daily_auto_update
       end
   end
 
@@ -28,12 +28,13 @@ class Job < ActiveRecord::Base
     url = "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WDTZ00074Z2GPBW05BMD&Keywords=ruby&Location=10010&radius=10&PerPage=100"
     responses = HTTParty.get(url)["ResponseJobSearch"]["Results"]["JobSearchResult"]
     responses.each do |response|
-    company_name = response["Company"]
-    c = Company.find_or_create_by_company_linkedin_name(/#{company_name}/i)
-    j = Job.new
-    j.company = c
-    j.get_attributes_for_career_builder(response)
-    j.daily_auto_update
+      company_name = response["Company"]
+      c = Company.find_or_create_by_company_linkedin_name(company_name)
+      j = Job.new
+      j.company = c
+      j.get_attributes_for_career_builder(response)
+      j.daily_auto_update
+    end
   end
 
   def get_attributes_for_career_builder(response)

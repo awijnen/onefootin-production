@@ -1,0 +1,30 @@
+<h1>All Connections in Your Alumni Network</h1>
+
+<h3>Size of the network: <%= @linkedinusers.size %></h3>
+
+<nav>
+  <%= link_to 'All Companies', companies_path %> | <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %>
+</nav>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+
+     <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Title</th>
+          <th>Location</th>
+        </tr>        
+      <% @linkedinusers.each do |linkedinuser| %>
+        <tr>
+          <th><%= link_to (linkedinuser.first_name + " " + linkedinuser.last_name), linkedinuser%></th>
+          <th><%= link_to linkedinuser.companies.first.company_linkedin_name, linkedinuser.companies.first %></th>
+          <th><%= linkedinuser.positions.first.title %></th>
+          <th><%= linkedinuser.location %></th>
+        </tr>  
+      <% end %>
+      </table>
+  </div>
+</div>
+<br>

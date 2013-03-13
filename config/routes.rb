@@ -1,4 +1,6 @@
 RsgLinkedinGem::Application.routes.draw do
+  get "linkedinuser/show_connections"
+
   get "jobs/index"
 
   get "jobs/show"
@@ -16,6 +18,7 @@ RsgLinkedinGem::Application.routes.draw do
 
   match '/jobs_with_connections' => 'jobs#jobs_with_connections'
   match '/companies_with_jobs' => 'companies#companies_with_jobs'
+  match '/show_connections' => 'linkedinusers#show_connections'
 
   root :to => 'linkedin#index'
 
