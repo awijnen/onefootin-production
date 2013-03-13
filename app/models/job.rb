@@ -8,7 +8,7 @@ class Job < ActiveRecord::Base
       responses = HTTParty.get(url)["shrs"]["rs"]["r"]
       responses.each do |response|
       company_name = response["cn"]["__content__"]
-      c = Company.find_or_create_by_company_linkedin_name(/#{company_name}/i)
+      c = Company.find_or_create_by_company_linkedin_name(company_name)
       j = Job.new
       j.company = c
         j.get_attributes_for_simply_hired(response)
@@ -21,27 +21,31 @@ class Job < ActiveRecord::Base
     self.posting_date = response["dp"] 
     self.link         = response["src"]["url"]
     self.city         = response["loc"]['cty'] 
-    self.state        = response["loc"]["st"]    
+    self.state        = response["loc"]["st"]
+    self.description  = response["e"]    
   end
 
   def self.create_all_from_career_builder
     url = "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WDTZ00074Z2GPBW05BMD&Keywords=ruby&Location=10010&radius=10&PerPage=100"
     responses = HTTParty.get(url)["ResponseJobSearch"]["Results"]["JobSearchResult"]
     responses.each do |response|
-    company_name = response["Company"]
-    c = Company.find_or_create_by_company_linkedin_name(/#{company_name}/i)
-    j = Job.new
-    j.company = c
-    j.get_attributes_for_career_builder(response)
-    j.daily_auto_update
+      company_name = response["Company"]
+      c = Company.find_or_create_by_company_linkedin_name(company_name)
+      j = Job.new
+      j.company = c
+      j.get_attributes_for_career_builder(response)
+      j.daily_auto_update
+    end
   end
 
   def get_attributes_for_career_builder(response)
     self.title        = response["ONetFriendlyTitle"]
     self.posting_date = Date.strptime(response["PostedDate"], "%m/%d/%Y") 
     self.link         = response["JobDetailsURL"]
-    self.city         = response["Location"].last 
-    self.state        = response["Location"].first 
+    location          = response["Location"].split(" - ")
+    self.city         = location.first 
+    self.state        = location.last
+    self.description  = response["DescriptionTeaser"]
     self.logo         = response["CompanyImageURL"] 
   end
   
