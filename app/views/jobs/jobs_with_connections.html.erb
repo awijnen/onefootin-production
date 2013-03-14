@@ -1,3 +1,4 @@
+
 <h1>All Jobs with Connections</h1>
 
 <h3>Number of jobs listed: <%= @jobs.size %></h3>
@@ -5,6 +6,9 @@
 <nav>
   <%= link_to 'All Companies', companies_path %> | <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Alumni Network', show_connections_path %>
 </nav>
+
+
+
 
 <div class="row" style="margin-top: 16px;">
   <div class="span10">
@@ -36,6 +40,39 @@
       </table>
   </div>
 </div>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Companies with at least one job and one connection</h1>
+
+     <table class="table table-striped">
+        <tr>
+          <th>Company</th>
+          <th># Jobs</th>
+          <th>City</th>
+          <th>Network connections</th>
+        </tr>        
+      
+      <% @counter = 0 %>
+
+      <% Company.companies_with_jobs_and_connections.each do |company| %>
+          <% unless company.id == 1013 %>
+            <tr>
+              <th><%= link_to company.company_linkedin_name, company %></th>
+              <th><%= company.jobs.size %></th>
+              <th>test</th>
+              <th>test</th>
+            </tr>
+          <% end %>
+      <% end %>
+      </table>
+  </div>
+</div>
+
+
+
+
+
 <h3>Number of connections that can help you: <%= @counter %></h3>
 <br>
 

@@ -1,53 +1,107 @@
-<h1><%= @company.company_linkedin_name %></h1>
+  <%= link_to (companies_path) do %>
+    <div id="header">
+      <%= image_tag 'logo_big.png', {:class => 'logo_header'} %>
+    </div>
+  <% end %>
 
-<%= link_to 'All Companies', companies_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %> | <%= link_to 'Alumni Network', show_connections_path %>
+    <!-- TOP GRID ROW-->
 
-<div class="row" style="margin-top: 16px;">
-  <div class="span10">
-    <h1>Jobs</h1>
+    <div class="row-fluid company_detail_unit">
+      
+      <div class="span5">
+        <div class="co_detail_wrap">
+          <p class="company_name"><%= @company.company_linkedin_name %></p>
+        </div>
+      </div>
 
-    <% unless @company.jobs.empty?%>
-     <table class="table table-striped">
-        <tr>
-          <th>Title</th>
-          <th>City</th>
-        </tr>  
-              
-          <% @company.jobs.each do |job| %>
-            <tr>
-              <th><%= link_to job.title, job %></th>
-              <th><%= job.city %></th>
-            </tr>  
+      <div>
+        <div class="co_listing_wrap">
+          <div>
+            <ul>
+              <li>JOBS <span><%= @company.jobs.size %></span></li>
+              <li>CONNECTIONS <span><%= @company.linkedinusers.size %></span></li>
+              <li>
+                <a href="#myModal" role="button" class="btn btn-info" data-toggle="modal">SEE CONNECTIONS</a>
+                
+              </li>
+            </ul>
+          </div>
+        </div> 
+      </div>
+    
+    </div>
+
+<!-- BOTTOM GRID ROW UNITS-->
+
+<% unless @company.jobs.empty?%>
+  <% @company.jobs.each do |job| %>
+
+    <div class="row-fluid job_listing_unit">
+      <div class="span8">
+        <div class="job_descr_wrap">
+          <div class="job_info">
+            <h3><%= job.title %></h3>
+            <h4><%=job.city %></h4>
+            <p><%=job.description %></p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="span4">
+        <div class="job_options_wrap">
+          <p class="posted_date">Posted on: <span><%=job.posting_date  %></span></p>
+          <%= link_to 'View Posting', job.link, {:class => 'btn btn-info job_right'}
+           %>       
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+<% end %>
+
+
+<!-- MODAL CODE -->
+<!-- Modal -->
+  <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 class="modal_header" id="myModalLabel"><span><%= @company.linkedinusers.size %></span> Connections</h3>
+    </div>
+      <div class="modal-body">
+        <% @company.linkedinusers.each do |ind_linkedinuser| %>
+          <% if ind_linkedinuser.separation_degree == 0 %>
+          <!-- stub for including alumni direct connections -->
+          <% else %>
+            <div class="btmbord">
+              <div class="left">
+                <div class="company_contact">
+                  <p class="blue_type">Company Contact</p>
+                  <div class="modal_contact">
+                    <p><strong><%= ind_linkedinuser.first_name %> <%= ind_linkedinuser.last_name %></strong></p>
+                    <p><%= Position.find_by_linkedinuser_and_company(ind_linkedinuser, @company).title %></p>
+                    <p><%= Position.find_by_linkedinuser_and_company(ind_linkedinuser, @company).linkedinuser.location %></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="right">
+                <div>
+                  <p class="blue_type">Who Knows Them</p>
+                  <div class="modal_contact">
+                    <%= image_tag (ind_linkedinuser.alumni_of_connection.picture_url), {:class => 'left modal_bust'} %>
+                    <p><strong><%= ind_linkedinuser.alumni_of_connection.first_name %> <%= ind_linkedinuser.alumni_of_connection.last_name %></strong></p>
+                    <% alumn = ind_linkedinuser.alumni_of_connection %>
+                    <p><%= alumn.positions.first.title %></p>
+                    <p><%= alumn.location %></p>
+                    <a class="btn btn-info" href="">EMAIL</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+            </div>
           <% end %>
-      </table>
-    <% else %>
-      <p>There are no jobs at <%= @company.company_linkedin_name %></p>
-    <% end %>
+        <% end %>
+      </div>
   </div>
-</div>
-<br>
-
-<div class="row" style="margin-top: 16px;">
-  <div class="span10">
-    <h1>Jobs</h1>
-
-    <% unless @company.jobs.empty?%>
-     <table class="table table-striped">
-        <tr>
-          <th>Title</th>
-          <th>City</th>
-        </tr>  
-              
-          <% @company.jobs.each do |job| %>
-            <tr>
-              <th><%= link_to job.title, job %></th>
-              <th><%= job.city %></th>
-            </tr>  
-          <% end %>
-      </table>
-    <% else %>
-      <p>There are no jobs at <%= @company.company_linkedin_name %></p>
-    <% end %>
-  </div>
-</div>
-<br>

@@ -7,4 +7,9 @@ class Linkedinuser < ActiveRecord::Base
 
   has_many :connections_linkedinusers
   has_many :connections, :through => :connections_linkedinusers, :class_name => "Linkedinuser", :foreign_key => :connection_id
+
+  def alumni_of_connection
+    Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => self.id).first.linkedinuser_id).first
+  end
+  
 end

@@ -1,0 +1,36 @@
+<h1>Company Connections for:</h1>
+<h3><%= @company.company_linkedin_name %></h3>
+
+    <div class="modal-body">
+      <% @company.linkedinusers.each do |ind_linkedinuser| %>
+        <div class="row btmbord">
+          <div class="left">
+            <div>
+              <p class="blue_type">Company Contact</p>
+              <div class="modal_contact">
+                <%= image_tag (ind_linkedinuser.picture_url), {:class => 'left modal_bust'} %>
+
+                <p><strong><%= ind_linkedinuser.first_name %> <%= ind_linkedinuser.last_name %></strong></p>
+                <p><%= Position.find_by_linkedinuser_and_company(ind_linkedinuser, @company).title %></p>
+                <p><%= Position.find_by_linkedinuser_and_company(ind_linkedinuser, @company).linkedinuser.location %></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="right">
+            <div>
+              <p class="blue_type">Who Knows Them</p>
+              <div class="modal_contact">
+                <%= image_tag (ind_linkedinuser.alumni_of_connection.picture_url), {:class => 'left modal_bust'} %>
+                <p><strong><%= ind_linkedinuser.alumni_of_connection.first_name %> <%= ind_linkedinuser.alumni_of_connection.last_name %></strong></p>
+                <p>Creative Director</p>
+                <p>New York, NY</p>
+                <a class="btn btn-info" href="">EMAIL</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      <% end %>
+    </div>

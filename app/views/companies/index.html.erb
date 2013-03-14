@@ -1,27 +1,51 @@
-<h1>Index for Companies</h1>
 
-<nav>
-  <%= link_to 'All Jobs', jobs_path %> | <%= link_to 'Jobs with Connections', jobs_with_connections_path %> | <%= link_to 'Companies with Jobs', companies_with_jobs_path %> | <%= link_to 'Alumni Network', show_connections_path %>
-</nav>
+<% company_array = Company.companies_with_jobs_and_connections_tri %>
+  
+  <%= link_to (companies_path) do %>
+    <div id="header">
+      <%= image_tag 'logo_big.png', {:class => 'logo_header'} %>
+    </div>
+  <% end %>
+  <%= link_to "Sign out", '/users/sign_out', {:method => "DELETE"}  %>
 
-<div class="row" style="margin-top: 16px;">
-  <div class="span10">
-    <h1>Companies</h1>
+<% company_array.each do |tri_company| %>
 
-     <table class="table table-striped">
-        <tr>
-          <th>Company</th>
-          <th>Jobs</th>
-          <th>Connections</th>
-        </tr>        
-      <% @companies.each do |company| %>
-        <tr>
-          <th><%= link_to company.company_linkedin_name, company%></th>
-          <th><%= company.jobs.size %></th>
-          <th><%= company.linkedinusers.size %></th>
-        </tr>  
+  <div class="row-fluid grid_unit companies">
+        
+    <div class="span4 company">
+      <%= link_to (tri_company[0]) do %>
+        <div class="unit_wrap">
+          <p class="company_name"><%= tri_company[0].company_linkedin_name %></p>
+          <div>
+            <p>Jobs <span><%= tri_company[0].jobs.size %></span> Connections <span><%= tri_company[0].linkedinusers.size %></span></p>
+          </div>
+        </div>
       <% end %>
-      </table>
+    </div>
+
+
+    <div class="span4 company">
+      <%= link_to (tri_company[1]) do %>
+        <div class="unit_wrap">
+          <p class="company_name"><%= tri_company[1].company_linkedin_name %></p>
+          <div>
+            <p>Jobs <span><%= tri_company[1].jobs.size %></span> Connections <span><%= tri_company[1].linkedinusers.size %></span></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+    <div class="span4 company">
+      <%= link_to (tri_company[2]) do %>
+        <div class="unit_wrap">
+          <p class="company_name"><%= tri_company[2].company_linkedin_name %></p>
+          <div>
+            <p>Jobs <span><%= tri_company[2].jobs.size %></span> Connections <span><%= tri_company[2].linkedinusers.size %></span></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 <br>

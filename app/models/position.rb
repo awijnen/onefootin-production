@@ -16,5 +16,8 @@ class Position < ActiveRecord::Base
     linkedinuser_test.separation_degree != 0
   end
 
+  def self.find_by_linkedinuser_and_company(linkedinuser, company)
+    Position.where(:linkedinuser_id => linkedinuser.id, :company_id => company.id).first
+  end
 
 end

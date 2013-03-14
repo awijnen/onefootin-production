@@ -20,7 +20,9 @@ RsgLinkedinGem::Application.routes.draw do
   match '/companies_with_jobs' => 'companies#companies_with_jobs'
   match '/show_connections' => 'linkedinusers#show_connections'
 
-  root :to => 'linkedin#index'
+  match '/companies/:id/company_connections' => 'companies#company_connections', :as => 'company_connections'
+
+  root :to => 'companies#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

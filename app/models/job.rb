@@ -23,6 +23,10 @@ class Job < ActiveRecord::Base
     network_connection_array
   end
 
+  def self.companies_with_jobs
+    companies_with_jobs = Job.all.collect { |job| job.company }
+  end
+
   def self.create_all_from_simply_hired
     counter = 1
     url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-1?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"
