@@ -40,13 +40,15 @@
           <th>Alumni Connection</th>
         </tr>        
       <% Linkedinuser.where(:separation_degree => 1).each do |linkedinuser| %>
-        <tr>
-          <th><%= link_to (linkedinuser.first_name + " " + linkedinuser.last_name), linkedinuser%></th>
-          <th><%= link_to linkedinuser.companies.first.company_linkedin_name, linkedinuser.companies.first %></th>
-          <th><%= linkedinuser.positions.first.title %></th>
-          <th><%= linkedinuser.location %></th>
-          <th><%= link_to Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first.first_name + " " + Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first.last_name, Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first %></th>
-        </tr>  
+        <% unless linkedinuser.companies.first.nil? %> 
+          <tr>
+            <th><%= link_to (linkedinuser.first_name + " " + linkedinuser.last_name), linkedinuser%></th>
+            <th><%= link_to linkedinuser.companies.first.company_linkedin_name, linkedinuser.companies.first %></th>
+            <th><%= linkedinuser.positions.first.title %></th>
+            <th><%= linkedinuser.location %></th>
+            <th><%= link_to Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first.first_name + " " + Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first.last_name, Linkedinuser.where(:id => ConnectionsLinkedinuser.where(:connection_id => linkedinuser.id).first.linkedinuser_id).first %></th>
+          </tr>
+        <% end %>  
       <% end %>
       </table>
   </div>

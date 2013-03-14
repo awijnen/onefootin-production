@@ -26,3 +26,28 @@
   </div>
 </div>
 <br>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="span10">
+    <h1>Jobs</h1>
+
+    <% unless @company.jobs.empty?%>
+     <table class="table table-striped">
+        <tr>
+          <th>Title</th>
+          <th>City</th>
+        </tr>  
+              
+          <% @company.jobs.each do |job| %>
+            <tr>
+              <th><%= link_to job.title, job %></th>
+              <th><%= job.city %></th>
+            </tr>  
+          <% end %>
+      </table>
+    <% else %>
+      <p>There are no jobs at <%= @company.company_linkedin_name %></p>
+    <% end %>
+  </div>
+</div>
+<br>

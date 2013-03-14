@@ -15,27 +15,21 @@
           <th>Company</th>
           <th>Title</th>
           <th>City</th>
-          <th>Alumni connection
-          <th>Company connection<th>
+          <th>Network connections</th>
         </tr>        
       
       <% @counter = 0 %>
+      <% @alumni_array = [] %>
+      <% @connections_array = [] %>
       <% @jobs.each do |job| %>
         <% if Position.find_by_company_id(job.company.id) != nil %>
-          <% Position.where(:company_id => job.company.id).all.each do |position| %>
-            <% ConnectionsLinkedinuser.where(:connection_id => Linkedinuser.find_by_id(position.linkedinuser_id)
-  .id).all.each do |connection| %>
-            <% @counter += 1 %>
-              <tr>
-                <th><%= link_to job.company.company_linkedin_name, job.company %></th>
-                <th><%= link_to job.title, job %></th>
-                <th><%= job.city %></th>
-                <th><%= Linkedinuser.find_by_id(connection.linkedinuser_id).first_name%> <%= Linkedinuser.find_by_id(connection.linkedinuser_id).last_name%></th>
-                <th><%= Linkedinuser.find_by_id(position.linkedinuser_id)
-      .first_name %> <%= Linkedinuser.find_by_id(position.linkedinuser_id)
-      .last_name %></th>
-              </tr>
-            <% end %>
+          <% unless job.company.id == 1013 %>
+            <tr>
+              <th><%= link_to job.company.company_linkedin_name, job.company %></th>
+              <th><%= link_to job.title, job %></th>
+              <th><%= job.city %></th>
+              <th><%= job.network_connections.size %></th>
+            </tr>
           <% end %>
         <% end %>  
       <% end %>

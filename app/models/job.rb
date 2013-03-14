@@ -3,6 +3,26 @@ class Job < ActiveRecord::Base
 
   belongs_to :company
 
+  def alumni_connections
+    alumni_connection_array = []
+    # check the company to which the job belongs
+    # get all positions at that company
+    self.company.positions.each do |position| 
+      alumni_connection_array << position if position.belongs_to_alumn?
+    end
+    alumni_connection_array
+  end
+
+  def network_connections
+    network_connection_array = []
+    # check the company to which the job belongs
+    # get all positions at that company
+    self.company.positions.each do |position| 
+      network_connection_array << position if position.belongs_to_network?
+    end
+    network_connection_array
+  end
+
   def self.create_all_from_simply_hired
     counter = 1
     url = "http://api.simplyhired.com/a/jobs-api/xml-v2/q-Ruby%20OR%20Rails+Jobs/l-10010/ws-100/pn-1?/ws-100&pshid=48926&ssty=2&cflg=r&jbd=ironedin.jobamatic.com&clip=184.75.101.229"

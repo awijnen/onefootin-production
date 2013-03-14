@@ -94,7 +94,7 @@ before_filter :authenticate_user!
     
     connections_profiles_by_id = []
 
-    @connections_id_array.first(3).each do |id| 
+    @connections_id_array.first(500).each do |id| 
       begin
         # sleep 0.1
         individual_profile_by_id = client.profile(:id => id, :fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "num-connections",:positions]).to_hash

@@ -3,4 +3,18 @@ class Position < ActiveRecord::Base
 
   belongs_to :linkedinuser
   belongs_to :company
+
+  def belongs_to_alumn?
+    linkedinuser_test = Linkedinuser.where(:id => self.linkedinuser_id).first
+  
+    linkedinuser_test.separation_degree == 0
+  end
+
+  def belongs_to_network?
+    linkedinuser_test = Linkedinuser.where(:id => self.linkedinuser_id).first
+  
+    linkedinuser_test.separation_degree != 0
+  end
+
+
 end
