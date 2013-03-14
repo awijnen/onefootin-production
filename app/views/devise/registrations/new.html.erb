@@ -1,19 +1,25 @@
 
-<h2>Sign up</h2>
+  <div id="login_logo">
+    <%= image_tag 'logo_big.png' %>
+  </div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <div id="login_form">
+    
+    <p>Check out the latest ruby on rails jobs and get a company contact. OneFootIN makes it all possible.</p>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+    
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+      <input id="login_btn" type="submit" name="login_submit" class="btn btn-info" value="GET JOBS">
+    <% end %>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
 
-<%= render "devise/shared/links" %>

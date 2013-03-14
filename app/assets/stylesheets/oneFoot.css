@@ -73,6 +73,10 @@ input {
 #login_btn {
   margin-top: 12px;
 }
+input#user_email{
+  margin-left: 24px;
+}
+
 
 input.btn {
   background-image: -moz-linear-gradient(top, #589dc4, #2481aa);
@@ -85,6 +89,8 @@ input.btn {
   height: 33px;
   font-size: 12px;
 }
+
+
 
 /*_ _ _ */
 
@@ -273,6 +279,10 @@ a.jobs_connections_btn {
   width: 130px;
   height: 30px;
   font-size: 12px;
+}
+
+#linkedin_auth_button {
+  text-align: center;
 }
 
 .posted_date {

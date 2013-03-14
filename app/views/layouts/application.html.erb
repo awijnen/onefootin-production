@@ -10,12 +10,16 @@
   <body>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-  <div class="container-fluid">
+    
 
-
-
-<%= yield %>
-  </div>
-  <%= javascript_include_tag "application" %>
-</body>
+    <div class="container-fluid">
+      <%= yield %>
+    
+    <br>
+    <footer>
+      <p>&copy; One Foot In</p>
+    </footer>
+    </div>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>

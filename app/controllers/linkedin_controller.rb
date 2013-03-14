@@ -16,7 +16,7 @@ before_filter :authenticate_user!
       if current_user.linkedinuser.nil?
         redirect_to '/linkedin_profile' # fetch linkedin users from linkedin API      
       else
-        redirect_to show_connections_path # show fetched users
+        redirect_to companies_path # show fetched users
       end
     end
   end
@@ -27,7 +27,7 @@ before_filter :authenticate_user!
     @connections_id_array = get_connections_id_array
     @connections_profiles_by_id = get_connections_profiles_by_id
 
-    redirect_to show_connections_path 
+    redirect_to companies_path 
   end
 
   def oauth_account
@@ -94,7 +94,7 @@ before_filter :authenticate_user!
     
     connections_profiles_by_id = []
 
-    @connections_id_array.first(500).each do |id| 
+    @connections_id_array.first(10).each do |id| 
       begin
         # sleep 0.1
         individual_profile_by_id = client.profile(:id => id, :fields => ["id","first-name", "last-name", "public-profile-url", "picture-url", "three-current-positions", "location:(name)", "distance", "num-connections",:positions]).to_hash
