@@ -14,10 +14,12 @@
       <%= f.email_field :email %>
       <%= f.label :password %>
       <%= f.password_field :password %>
-      <%= f.label :password_confirmation %>
+      <%= f.label :confirm %>
       <%= f.password_field :password_confirmation %>
       <input id="login_btn" type="submit" name="login_submit" class="btn btn-info" value="GET JOBS">
     <% end %>
+
+    <%= link_to "Sign out", '/users/sign_out', {:method => "DELETE", :class => 'logout'}  %>
 
   </div>
 

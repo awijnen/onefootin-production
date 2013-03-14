@@ -57,7 +57,7 @@ class Company < ActiveRecord::Base
     network_at_company = []
 
     self.positions.each do |position| 
-      network_at_company << position if position.belongs_to_alumn?
+      network_at_company << position if position.belongs_to_network?
     end
     
     network_at_company    

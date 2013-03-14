@@ -1,8 +1,9 @@
-  <%= link_to (companies_path) do %>
-    <div id="header">
-      <%= image_tag 'logo_big.png', {:class => 'logo_header'} %>
-    </div>
-  <% end %>
+<div id="header">
+<%= link_to (companies_path) do %>
+  <%= image_tag 'logo_big.png', {:class => 'logo_header'} %>
+<% end %>
+<%= link_to "Sign out", '/users/sign_out', {:method => "DELETE", :class => 'logout'}  %>
+</div>
 
     <!-- TOP GRID ROW-->
 
