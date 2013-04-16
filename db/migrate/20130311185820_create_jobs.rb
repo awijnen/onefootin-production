@@ -8,7 +8,7 @@ class CreateJobs < ActiveRecord::Migration
       t.string :state
       t.integer :company_id
       t.string :logo
-      t.string :description
+      t.text :description
       t.integer :user_id
 
       t.timestamps
