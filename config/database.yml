@@ -17,9 +17,11 @@ test:
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
+  encoding: unicode
 
 production:
   adapter: postgresql
   database: mydb
   pool: 5
   timeout: 5000
+  encoding: unicode
