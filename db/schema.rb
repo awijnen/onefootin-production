@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(:version => 20130311185820) do
   end
 
   create_table "jobs", :force => true do |t|
-    t.string   "title"
+    t.text     "title"
     t.datetime "posting_date"
-    t.string   "link"
+    t.text     "link"
     t.string   "city"
     t.string   "state"
     t.integer  "company_id"

@@ -1,9 +1,9 @@
 class CreateJobs < ActiveRecord::Migration
   def change
     create_table :jobs do |t|
-      t.string :title
+      t.text :title
       t.datetime :posting_date
-      t.string :link
+      t.text :link
       t.string :city
       t.string :state
       t.integer :company_id
