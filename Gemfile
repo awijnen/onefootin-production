@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'devise'
 gem 'httparty'
@@ -7,6 +7,9 @@ gem 'linkedin'
 gem 'pry'
 gem 'rails', '3.2.8'
 gem 'twitter-bootstrap-rails'
+gem 'less-rails'
+gem 'less-rails-bootstrap'
+
 gem 'therubyracer'
 
 group :assets do

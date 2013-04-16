@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (3.2.8)
       actionpack (= 3.2.8)
@@ -63,6 +63,11 @@ GEM
     json (1.7.7)
     less (2.3.1)
       commonjs (~> 0.2.6)
+    less-rails (2.3.3)
+      actionpack (>= 3.1)
+      less (~> 2.3.1)
+    less-rails-bootstrap (2.3.2)
+      less-rails (~> 2.3.1)
     libv8 (3.11.8.13)
     linkedin (0.3.7)
       hashie (~> 1.2)
@@ -153,6 +158,8 @@ DEPENDENCIES
   httparty
   jquery-rails
   less
+  less-rails
+  less-rails-bootstrap
   linkedin
   pg
   pry
