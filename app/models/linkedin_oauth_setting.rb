@@ -1,5 +1,5 @@
 class LinkedinOauthSetting < ActiveRecord::Base
-  attr_accessible :asecret, :atoken, :user_id
+  attr_accessible :id, :asecret, :atoken, :user_id
 
   belongs_to :user
 end

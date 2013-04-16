@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  attr_accessible :city, :company_id, :link, :posting_date, :state, :title, :logo, :description, :user_id
+  attr_accessible :id, :city, :company_id, :link, :posting_date, :state, :title, :logo, :description, :user_id
 
   belongs_to :company
 

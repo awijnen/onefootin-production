@@ -1,5 +1,5 @@
 class Position < ActiveRecord::Base
-  attr_accessible :is_current, :position_linkedin_id, :summary, :title
+  attr_accessible :id, :is_current, :position_linkedin_id, :summary, :title, :linkedinuser_id, :company_id
 
   belongs_to :linkedinuser
   belongs_to :company
