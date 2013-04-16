@@ -7,6 +7,7 @@ gem 'linkedin'
 gem 'pry'
 gem 'rails', '3.2.8'
 gem 'twitter-bootstrap-rails'
+gem 'therubyracer'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
