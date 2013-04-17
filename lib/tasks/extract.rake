@@ -184,7 +184,11 @@ namespace :extract_unpack do
 
     jobs.each do |job|
       if job
-        Job.create(job)
+        begin
+          Job.create(job)
+        rescue => ex
+          binding.pry
+        end
       end
 
     end
