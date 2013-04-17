@@ -355,7 +355,11 @@ namespace :extract_unpack do
 
     positions.each do |position|
       if position
-        Position.create(position)
+        begin
+          Position.create(position)
+        rescue => ex
+          binding.pry
+        end
       end
 
     end
