@@ -75,7 +75,11 @@ namespace :extract_unpack do
 
     companies.each do |company|
       if company
-        Company.create(company)
+        begin
+          Company.create(company)
+        rescue => ex
+          # binding.pry
+        end
       end
 
     end
@@ -126,7 +130,11 @@ namespace :extract_unpack do
 
     connections.each do |connection|
       if connection
-        ConnectionsLinkedinuser.create(connection)
+        begin
+          ConnectionsLinkedinuser.create(connection)
+        rescue => ex
+          # binding.pry
+        end
       end
 
     end
@@ -187,7 +195,7 @@ namespace :extract_unpack do
         begin
           Job.create(job)
         rescue => ex
-          binding.pry
+          # binding.pry
         end
       end
 
@@ -240,7 +248,11 @@ namespace :extract_unpack do
 
     oauth_settings.each do |oauth_setting|
       if oauth_setting
-        LinkedinOauthSetting.create(oauth_setting)
+        begin
+          LinkedinOauthSetting.create(oauth_setting)
+        rescue => ex
+          # binding.pry
+        end  
       end
 
     end
@@ -300,7 +312,11 @@ namespace :extract_unpack do
 
     linkedin_users.each do |linkedin_user|
       if linkedin_user
-        Linkedinuser.create(linkedin_user)
+        begin  
+          Linkedinuser.create(linkedin_user)
+        rescue => ex
+          # binding.pry
+        end
       end
 
     end
@@ -358,7 +374,7 @@ namespace :extract_unpack do
         begin
           Position.create(position)
         rescue => ex
-          binding.pry
+          # binding.pry
         end
       end
 
